@@ -1,0 +1,8 @@
+@import url("variables.css");
+@import url("common.css");
+
+body {
+    font-size: 0.75rem;
+    line-height: 1.334;
+    width: 22rem;
+}

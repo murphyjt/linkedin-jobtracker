@@ -1,14 +1,16 @@
 {
-  "name": "linkedin-applied",
-  "version": "1.0.0",
+  "name": "linkedin-jobtracker",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "vite build",
+    "dev": "vite build --watch"
   },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "@types/chrome": "^0.0.315",
+    "typescript": "^5.5.3",
+    "vite": "^6.3.2"
   },
   "private": true
 }
