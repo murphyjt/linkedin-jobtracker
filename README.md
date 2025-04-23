@@ -5,6 +5,11 @@ Track your LinkedIn job applications with visible checkmarks and reminders for c
 ## Description
 Make applying for jobs easier with LinkedIn JobTracker. JobTracker integrates with LinkedIn to highlight companies you've already applied to. Without JobTracker, LinkedIn only highlights the jobs you've applied to but not the companies.
 
+## Screenshots
+![Screenshot](store/screenshot-1.png)
+
+![Screenshot](store/screenshot-2.png)
+
 ## How to build
 ```shell
 just build
