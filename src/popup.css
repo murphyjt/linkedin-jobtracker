@@ -1,8 +1,71 @@
 @import url("variables.css");
 @import url("common.css");
 
+html {
+    height: fit-content;
+}
+
 body {
     font-size: 0.75rem;
     line-height: 1.334;
-    width: 22rem;
+    width: 240px;
+}
+
+button {
+    font-size: 0.75rem;
+    border: 1px solid var(--item-border-color);
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
+    background:  var(--main-background-color);
+    color: var(--link-color);
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--list-hover-background-color);
+    color: var(--link-color);
+}
+
+button:disabled {
+    background: var(--main-background-color);
+    color: var(--link-color);
+    cursor: default;
+}
+
+header {
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--tool-action-v-padding);
+}
+
+h1 {
+    font-size: 1rem;
+    font-family: "Cal Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+}
+
+main {
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    margin-top: var(--tool-action-v-padding) 0;
+}
+
+.loading-dots .dots::after {
+    content: "";
+    display: inline-block;
+    width: 1ch;
+    text-align: left;
+    animation: dots 2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%   { content: "";     }
+    25%  { content: ".";    }
+    50%  { content: "..";   }
+    75%  { content: "...";  }
+    100% { content: "";     }
 }

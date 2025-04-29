@@ -12,6 +12,9 @@
     "256": "icons/icon-256.png",
     "384": "icons/icon-384.png"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_title": "LinkedIn JobTracker",
     "default_popup": "popup.html"

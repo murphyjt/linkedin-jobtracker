@@ -85,7 +85,7 @@ async function saveCompanies(companies: Set<string>) {
 async function done(companies: Set<string>) {
     await saveCompanies(companies)
     console.debug("✅ Done loading all pages");
-    await chrome.runtime.sendMessage({type: "doneScraping", success: true})
+    await chrome.runtime.sendMessage({type: "DONE_SCRAPING", success: true})
 }
 
 //endregion

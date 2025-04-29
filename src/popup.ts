@@ -1,29 +1,30 @@
 import "./popup.css";
 
-import MessageSender = chrome.runtime.MessageSender;
-
-function messageHandler(message: any, sender: MessageSender) {
-    if (message.type === "doneScraping" && sender.tab?.id) {
-        void chrome.tabs.remove(sender.tab.id);
-        console.log("Closed scraping tab");
-    }
+async function template() {
+    const companies = await getCompanies();
+    return companies.length ? `Found ${companies.length} companies` : "";
 }
 
-chrome.runtime.onMessage.addListener(messageHandler);
+async function getCompanies() {
+    const contents = await chrome.storage.local.get({applied_companies: []})
+    return contents["applied_companies"];
+}
 
-chrome.tabs.create({
-    url: "https://www.linkedin.com/my-items/saved-jobs/?cardType=APPLIED",
-    active: false
-}, async (tab) => {
-    if (!tab.id) {
-        console.warn("Failed to open tab");
-        return;
-    }
+(async function init() {
+    document.getElementById("message")!.innerText = await template();
+})()
 
-    console.log("Tab opened:", tab.id);
-
-    await chrome.scripting.executeScript({
-        target: {tabId: tab.id},
-        files: ["applied.js"],
+document.getElementById("sync")?.addEventListener("click", async () => {
+    chrome.runtime.onMessage.addListener(async function listener(message) {
+        if (message.type === "DONE_SCRAPING") {
+            chrome.runtime.onMessage.removeListener(listener);
+            document.getElementById("message")!.innerText = await template();
+            document.getElementById("sync")!.innerText = 'Sync';
+            document.querySelector<HTMLButtonElement>("#sync")!.disabled = false;
+        }
     });
+    document.querySelector<HTMLButtonElement>("#sync")!.disabled = true;
+    document.getElementById("message")!.innerHTML = "";
+    document.getElementById("sync")!.innerHTML = '<span class="loading-dots">Syncing<span class="dots"></span></span>';
+    await chrome.runtime.sendMessage({type: "START_SCRAPING"});
 });

@@ -9,6 +9,7 @@ export default defineConfig({
                 popup: "popup.html",
                 applied: "src/applied.ts",
                 jobs: "src/jobs.ts",
+                background: "src/background.ts",
             },
             output: {
                 entryFileNames: "[name].js",
