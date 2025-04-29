@@ -2,6 +2,8 @@
 
 Track your LinkedIn job applications with visible checkmarks and reminders for companies you've already applied to.
 
+[Add to Chrome](https://chromewebstore.google.com/detail/dpanfnmgfeffajbcdnknboebelcjecdc?utm_source=item-share-cb)
+
 ## Description
 JobTracker integrates with LinkedIn to highlight companies you've already applied to. Without JobTracker, LinkedIn only highlights the jobs you've applied to but not the companies.
 
