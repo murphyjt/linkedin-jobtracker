@@ -8,7 +8,14 @@ html {
 body {
     font-size: 0.75rem;
     line-height: 1.334;
+    height: fit-content;
     width: 240px;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tool-action-v-padding);
 }
 
 button {
@@ -16,7 +23,7 @@ button {
     border: 1px solid var(--item-border-color);
     border-radius: 3px;
     padding: 0.25rem 0.5rem;
-    background:  var(--main-background-color);
+    background: var(--main-background-color);
     color: var(--link-color);
     cursor: pointer;
 }
@@ -36,7 +43,6 @@ header {
     gap: 0.5rem;
     display: flex;
     align-items: center;
-    margin-bottom: var(--tool-action-v-padding);
 }
 
 h1 {
@@ -54,18 +60,10 @@ main {
     margin-top: var(--tool-action-v-padding) 0;
 }
 
-.loading-dots .dots::after {
-    content: "";
-    display: inline-block;
-    width: 1ch;
-    text-align: left;
-    animation: dots 2s steps(4, end) infinite;
-}
-
-@keyframes dots {
-    0%   { content: "";     }
-    25%  { content: ".";    }
-    50%  { content: "..";   }
-    75%  { content: "...";  }
-    100% { content: "";     }
+.full-width {
+    width: 100%;
+    font-size: .75rem;
+    border: 1px solid var(--item-border-color);
+    padding: 4px 8px;
+    border-radius: 3px;
 }

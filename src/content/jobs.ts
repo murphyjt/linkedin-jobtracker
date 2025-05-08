@@ -1,3 +1,6 @@
+import {loadCompanies} from "../common.ts";
+import checkmark from "./checkmark.svg";
+
 loadCompanies().then(companies => {
     const pageReadyObserver = new MutationObserver((_, self) => {
         console.debug("Page changed")
@@ -30,23 +33,23 @@ loadCompanies().then(companies => {
                 queryCompany(jobCard)!.style.alignItems = "center";
                 queryCompany(jobCard)!.prepend(check.cloneNode(true));
             }
-            if (companies.has(queryCompany(jobCard)?.innerText!) && !queryLogo(jobCard)?.textContent?.includes(marker.innerText)) {
-                queryLogo(jobCard)?.appendChild(appliedContainer.cloneNode(true));
-            }
+            // if (companies.has(queryCompany(jobCard)?.innerText!) && !queryLogo(jobCard)?.textContent?.includes(marker.innerText)) {
+            //     queryLogo(jobCard)?.appendChild(appliedContainer.cloneNode(true));
+            // }
         }
     }
 });
 
-const appliedContainer = document.createElement("div");
+// const appliedContainer = document.createElement("div");
 
 const check = document.createElement("img");
-check.src = chrome.runtime.getURL("assets/checkmark.svg");
+check.src = checkmark;
 check.alt = "Applied Checkmark";
 
-const marker = document.createElement("div");
-marker.innerText = "Applied";
-marker.setAttribute("class", "artdeco-entity-lockup__caption job-card-container__footer-item");
-appliedContainer.appendChild(marker);
+// const marker = document.createElement("div");
+// marker.innerText = "Applied";
+// marker.setAttribute("class", "artdeco-entity-lockup__caption job-card-container__footer-item");
+// appliedContainer.appendChild(marker);
 
 //region Helpers
 
@@ -56,11 +59,6 @@ function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
         clearTimeout(timeout);
         timeout = setTimeout(() => fn(...args), delay);
     } as T;
-}
-
-async function loadCompanies() {
-    const container = await chrome.storage.local.get({applied_companies: []});
-    return new Set<string>(container["applied_companies"]);
 }
 
 function queryList() {
@@ -76,8 +74,8 @@ function queryCompany(jobCard: HTMLElement) {
     return jobCard.querySelector<HTMLDivElement>("div > div:first-child > div:nth-child(2) > div:nth-child(2)");
 }
 
-function queryLogo(jobCard: HTMLElement) {
-    return jobCard.querySelector(".job-card-list__logo");
-}
+// function queryLogo(jobCard: HTMLElement) {
+//     return jobCard.querySelector(".job-card-list__logo");
+// }
 
 //endregion

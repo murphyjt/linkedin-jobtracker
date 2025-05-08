@@ -1,7 +1,13 @@
+// @ts-ignore
+import scriptPath from "./inject/applied.ts?script";
+import {EventType} from "./common.ts";
+
+const url = "https://www.linkedin.com/my-items/saved-jobs/?cardType=APPLIED";
+
 chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === "START_SCRAPING") {
+    if (message.type === EventType.Start) {
         chrome.tabs.create({
-            url: "https://www.linkedin.com/my-items/saved-jobs/?cardType=APPLIED",
+            url,
             active: false
         }, async (newTab) => {
             const newTabId = newTab.id;
@@ -13,7 +19,7 @@ chrome.runtime.onMessage.addListener((message) => {
             console.log("Tab opened:", newTabId);
 
             chrome.runtime.onMessage.addListener(async function listener(message, sender) {
-                if (message.type === "DONE_SCRAPING" && sender.tab && sender.tab.id === newTabId) {
+                if (message.type === EventType.End && sender.tab && sender.tab.id === newTabId) {
                     chrome.runtime.onMessage.removeListener(listener);
                     await chrome.tabs.remove(newTabId);
                 }
@@ -21,7 +27,7 @@ chrome.runtime.onMessage.addListener((message) => {
 
             await chrome.scripting.executeScript({
                 target: {tabId: newTabId},
-                files: ["applied.js"],
+                files: [scriptPath],
             });
         });
     }

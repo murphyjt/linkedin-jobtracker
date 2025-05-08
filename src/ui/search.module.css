@@ -1,0 +1,17 @@
+.list {
+    margin-block: unset;
+    padding-inline: unset;
+    list-style: none;
+}
+
+.result {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 4px 8px;
+    line-height: normal;
+}
+
+.result:hover {
+    border-color: var(--selected-item-border-color);
+    background: var(--list-hover-background-color);
+}

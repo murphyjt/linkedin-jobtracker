@@ -1,21 +1,8 @@
 import {defineConfig} from "vite";
+import react from "@vitejs/plugin-react";
+import {crx} from "@crxjs/vite-plugin";
+import manifest from "./src/manifest.json";
 
 export default defineConfig({
-    build: {
-        outDir: "dist",
-        emptyOutDir: true,
-        rollupOptions: {
-            input: {
-                popup: "popup.html",
-                applied: "src/applied.ts",
-                jobs: "src/jobs.ts",
-                background: "src/background.ts",
-            },
-            output: {
-                entryFileNames: "[name].js",
-                chunkFileNames: '[name].js',
-                assetFileNames: '[name][extname]',
-            },
-        },
-    }
+  plugins: [react(), crx({manifest})],
 });
