@@ -6,16 +6,11 @@ interface SearchProps {
 }
 
 export default function Search({values}: SearchProps) {
-  const [results, setResults] = useState<string[]>([]);
+  const [term, setTerm] = useState("");
   const ref = useRef<HTMLInputElement | null>(null);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const term = event.target.value.toLowerCase();
-    if (!term) {
-      setResults([]);
-    } else {
-      setResults(Array.from(values).filter(v => v.toLowerCase().includes(term)).sort());
-    }
+    setTerm(event.target.value);
   }
 
   useEffect(() => {
@@ -25,12 +20,25 @@ export default function Search({values}: SearchProps) {
   return (
     <>
       <input id="search" type="search" placeholder="Search" className="full-width"
-             ref={ref} onChange={handleChange}/>
-      {results.length > 0 && (
+             value={term} ref={ref} onChange={handleChange}/>
+      {term && Array.from(values).filter(v => v.toLowerCase().includes(term.toLowerCase())) && (
         <output>
-          <ul id="search-result" className={classes.list}>{results.map(result => (
-            <li className={classes.result}>{result}</li>
-          ))}</ul>
+          <ul id="search-result" className={classes.list}>
+            {Array.from(values).filter(v => v.toLowerCase().includes(term.toLowerCase())).sort().map(item => {
+              const index = item.toLowerCase().indexOf(term.toLowerCase());
+              const prefix = item.slice(0, index);
+              const match = item.slice(index, index + term.length);
+              const suffix = item.slice(index + term.length);
+
+              return (
+                <li key={item}>
+                  {prefix}
+                  <strong>{match}</strong>
+                  {suffix}
+                </li>
+              );
+            })}
+          </ul>
         </output>
       )}
     </>
